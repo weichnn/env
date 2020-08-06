@@ -10,7 +10,7 @@ useMirror=$2
 useZsh=$3
 
 echo "------------------------"
-echo "./init.sh $email $useMirror $useZsh"
+echo "./init.sh email: $email useMirror: $useMirror useZsh: $useZsh"
 echo "------------------------"
 
 if [ $# -lt 1 ] ; then
