@@ -47,14 +47,6 @@ if [ ! -f "/home/$USER/.ssh/id_rsa" ]; then
     cp ~/.ssh/id_rsa.pub ~/
 fi
 
-
-if [ $useZsh == "yes" ]; 
-    then
-    cecho YELLOW "installing Zsh"
-    sudo apt install zsh
-    sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-fi
-
 cecho YELLOW "installing ROS"
 if [ $useMirror == "yes" ]; 
     then
@@ -67,12 +59,15 @@ sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31
 sudo apt update
 sudo apt install ros-noetic-desktop-full
 
+echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
+source ~/.bashrc
 
-if [ $useZsh == "yes" ]
+
+if [ $useZsh == "yes" ]; 
     then
-        echo "source /opt/ros/noetic/setup.zsh" >> ~/.zshrc
-        source ~/.zshrc
-    else
-        echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
-        source ~/.bashrc
-fi;
+    cecho YELLOW "installing Zsh"
+    sudo apt install zsh
+    sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    echo "source /opt/ros/noetic/setup.zsh" >> ~/.zshrc
+    source ~/.zshrc
+fi
