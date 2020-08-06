@@ -1,22 +1,8 @@
 #!/bin/bash
 
-useMirror="no"
-useZsh="no"
-email="example@mail.com"
-
-
-email=$(realpath $1)
-useMirror=$2
-useZsh=$3
-
 echo "------------------------"
-echo "./init.sh email: $email useMirror: $useMirror useZsh: $useZsh"
+echo "./init.sh "
 echo "------------------------"
-
-if [ $# -lt 1 ] ; then
-echo "False Usage!"
-exit 1;
-fi
 
 function cecho(){
     RED="\033[0;31m"
@@ -28,7 +14,9 @@ function cecho(){
     printf "${!1}${2} ${NC}\n"
 }
 
-if [ $useMirror == "yes" ]; then
+read -p "continue to use mirrors [yes/no]" useMirror 
+if [ $useMirror == "yes" ]
+    then
     sudo sed -i 's/archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
 fi
 
@@ -36,17 +24,17 @@ sudo apt-get update
 sudo apt install vim git openssh-server
 
 
-
 cecho YELLOW "installing vs-code"
 sudo snap install --classic code
 
-
+read -p "input your email" email
 if [ ! -f "/home/$USER/.ssh/id_rsa" ]; then
     cecho YELLOW "configing ssh key"
     ssh-keygen -t rsa -b 4096 -C $email
     cp ~/.ssh/id_rsa.pub ~/
 fi
 
+read -p "continue to use mirrors [yes/no]" useMirror 
 cecho YELLOW "installing ROS"
 if [ $useMirror == "yes" ]; 
     then
@@ -62,7 +50,7 @@ sudo apt install ros-noetic-desktop-full
 echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
 source ~/.bashrc
 
-
+read -p "continue to use Zsh [yes/no]" useZsh 
 if [ $useZsh == "yes" ]; 
     then
     cecho YELLOW "installing Zsh"
