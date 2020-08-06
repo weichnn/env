@@ -48,17 +48,57 @@ fi
 
 sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
 sudo apt update
-sudo apt install ros-noetic-desktop-full
+read -p "the version of Ubuntu [16/18/20]?: " UbVer 
+if [ $UbVer == "20" ]; 
+    then
+        sudo apt install ros-noetic-desktop-full
+        echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
+fi
 
-echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
+if [ $UbVer == "18" ]; 
+    then
+        sudo apt install ros-melodic-desktop-full
+        echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc
+        sudo apt install python-rosdep python-rosinstall python-rosinstall-generator python-wstool build-essential
+        sudo apt install python-rosdep
+        sudo rosdep init
+        rosdep update
+fi
+
+if [ $UbVer == "16" ]; 
+    then
+        sudo apt-get install ros-kinetic-desktop-full
+        echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc
+        sudo apt install python-rosdep python-rosinstall python-rosinstall-generator python-wstool build-essential
+        sudo apt install python-rosdep
+        sudo rosdep init
+        rosdep update
+fi
+
 source ~/.bashrc
 
-read -p "continue to use Zsh [yes/no]?: " useZsh 
+read -p "Do you want to install Zsh [yes/no]?: " useZsh 
 if [ $useZsh == "yes" ]; 
     then
     cecho YELLOW "installing Zsh"
     sudo apt install zsh
     sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-    echo "source /opt/ros/noetic/setup.zsh" >> ~/.zshrc
+    
+
+    if [ $UbVer == "20" ]; 
+    then
+        echo "source /opt/ros/noetic/setup.zsh" >> ~/.zshrc
+    fi
+
+    if [ $UbVer == "18" ]; 
+        then
+            echo "source /opt/ros/melodic/setup.zsh" >> ~/.zshrc
+    fi
+
+    if [ $UbVer == "16" ]; 
+        then
+            echo "source /opt/ros/kinetic/setup.zsh" >> ~/.zshrc
+    fi
+
     source ~/.zshrc
 fi
