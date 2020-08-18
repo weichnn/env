@@ -23,11 +23,10 @@ fi
 
 sudo add-apt-repository ppa:obsproject/obs-studio
 sudo apt update
-sudo apt install vim git openssh-server terminator ffmpeg obs-studio python3-pip
+sudo apt install vim git openssh-server terminator ffmpeg obs-studio python3-pip shadowsocks-libev
 
 cecho YELLOW "installing vs-code"
 sudo snap install --classic code
-sudo snap install shadowsocks-libev
 
 if [[ ! -f "/home/$USER/.ssh/id_rsa" ]]; then
     cecho YELLOW "configing ssh key"
