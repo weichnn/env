@@ -23,16 +23,20 @@ fi
 
 sudo add-apt-repository ppa:obsproject/obs-studio
 sudo apt update
-sudo apt install vim git openssh-server terminator ffmpeg obs-studio
+sudo apt install vim git openssh-server terminator ffmpeg obs-studio python3-pip
 
 cecho YELLOW "installing vs-code"
 sudo snap install --classic code
+sudo snap install shadowsocks-libev
 
 if [[ ! -f "/home/$USER/.ssh/id_rsa" ]]; then
     cecho YELLOW "configing ssh key"
     read -p "input your email: " email
     ssh-keygen -t rsa -b 4096 -C $email
     cp ~/.ssh/id_rsa.pub ~/
+    read -p "input your name: " name
+    git config --global user.name $name
+    git config --global user.email $email
 fi
 
 read -p "Do you want to install ROS [yes/no]?: " InstallROS
