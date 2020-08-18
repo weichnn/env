@@ -21,8 +21,9 @@ if [[ $useMirror == "yes" ]]; then
     sudo sed -i 's/archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
 fi
 
-sudo apt-get update
-sudo apt install vim git openssh-server terminator
+sudo add-apt-repository ppa:obsproject/obs-studio
+sudo apt update
+sudo apt install vim git openssh-server terminator ffmpeg obs-studio
 
 cecho YELLOW "installing vs-code"
 sudo snap install --classic code
