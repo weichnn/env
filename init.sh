@@ -1,10 +1,7 @@
 #!/bin/bash
 
-useMirror="no"
-# useMirror=$1
-
 echo "------------------------"
-echo "./init.sh useMirror"
+echo "./init.sh"
 echo "------------------------"
 
 function cecho() {
@@ -17,6 +14,7 @@ function cecho() {
     printf "${!1}${2} ${NC}\n"
 }
 
+read -p "Do you want to use Mirror [yes/no]?: " useMirror
 if [[ $useMirror == "yes" ]]; then
     sudo sed -i 's/archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
 fi
@@ -37,6 +35,8 @@ if [[ ! -f "/home/$USER/.ssh/id_rsa" ]]; then
     read -p "input your email: " email
     ssh-keygen -t rsa -b 4096 -C $email
     cp ~/.ssh/id_rsa.pub ~/
+
+    cecho YELLOW "configure your git"
     read -p "input your name: " name
     git config --global user.name $name
     git config --global user.email $email
