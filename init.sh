@@ -30,6 +30,10 @@ cecho YELLOW "installing chrome"
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 sudo dpkg -i google-chrome-stable_current_amd64.deb
 
+cecho YELLOW "installing cloud music"
+http://d1.music.126.net/dmusic/netease-cloud-music_1.2.1_amd64_ubuntu_20190428.deb
+sudo dpkg -i netease-cloud-music_1.2.1_amd64_ubuntu_20190428.deb
+
 if [[ ! -f "/home/$USER/.ssh/id_rsa" ]]; then
     cecho YELLOW "configing ssh key"
     read -p "input your email: " email
