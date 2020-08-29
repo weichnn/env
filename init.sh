@@ -21,7 +21,7 @@ fi
 
 sudo add-apt-repository ppa:obsproject/obs-studio
 sudo apt update
-sudo apt install vim git openssh-server terminator ffmpeg obs-studio python3-pip shadowsocks-libev mtr
+sudo apt install vim git openssh-server terminator ffmpeg obs-studio python3-pip shadowsocks-libev mtr lm-sensors hddtemp proxychains4
 
 cecho YELLOW "installing vs-code"
 sudo snap install --classic code
