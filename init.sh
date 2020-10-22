@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "------------------------"
-echo "./init.sh"
+echo "./dev env init.sh"
 echo "------------------------"
 
 function cecho() {
@@ -14,34 +14,35 @@ function cecho() {
     printf "${!1}${2} ${NC}\n"
 }
 
-read -p "Do you want to use Mirror [yes/no]?: " useMirror
+# read -p "Do you want to use Mirror [yes/no]?: " useMirror
+useMirror="no"
 if [[ $useMirror == "yes" ]]; then
     sudo sed -i 's/archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
 fi
 
 sudo add-apt-repository ppa:obsproject/obs-studio
 sudo apt update
-sudo apt install vim git openssh-server terminator ffmpeg obs-studio python3-pip shadowsocks-libev mtr lm-sensors hddtemp proxychains4
+sudo apt install vim git openssh-server terminator ffmpeg obs-studio python3-pip mtr lm-sensors hddtemp libopencv-dev 
 
 cecho YELLOW "installing vs-code"
 sudo snap install --classic code
 
-cecho YELLOW "installing chrome"
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-sudo dpkg -i google-chrome-stable_current_amd64.deb
+# cecho YELLOW "installing chrome"
+# wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+# sudo dpkg -i google-chrome-stable_current_amd64.deb
 
-cecho YELLOW "installing cloud music"
-http://d1.music.126.net/dmusic/netease-cloud-music_1.2.1_amd64_ubuntu_20190428.deb
-sudo dpkg -i netease-cloud-music_1.2.1_amd64_ubuntu_20190428.deb
+# cecho YELLOW "installing cloud music"
+# http://d1.music.126.net/dmusic/netease-cloud-music_1.2.1_amd64_ubuntu_20190428.deb
+# sudo dpkg -i netease-cloud-music_1.2.1_amd64_ubuntu_20190428.deb
 
 if [[ ! -f "/home/$USER/.ssh/id_rsa" ]]; then
     cecho YELLOW "configing ssh key"
-    read -p "input your email: " email
+    read -p "input your email for ssh_key and git: " email
     ssh-keygen -t rsa -b 4096 -C $email
     cp ~/.ssh/id_rsa.pub ~/
 
     cecho YELLOW "configure your git"
-    read -p "input your name: " name
+    read -p "input your name for git: " name
     git config --global user.name $name
     git config --global user.email $email
 fi
@@ -85,7 +86,8 @@ if [[ $InstallROS == "yes" ]]; then
     source ~/.bashrc
 fi
 
-read -p "Do you want to install Zsh [yes/no]?: " useZsh
+# read -p "Do you want to install Zsh [yes/no]?: " useZsh
+useZsh="no"
 if [[ $useZsh == "yes" ]]; then
     cecho YELLOW "installing Zsh"
     sudo apt install zsh
