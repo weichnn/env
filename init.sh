@@ -38,8 +38,8 @@ sudo snap install --classic code
 if [[ ! -f "/home/$USER/.ssh/id_rsa" ]]; then
     cecho YELLOW "configing ssh key"
     read -p "input your email for ssh_key and git: " email
-    ssh-keygen -t rsa -b 4096 -C $email
-    cp ~/.ssh/id_rsa.pub ~/
+    ssh-keygen -t ed25519 -C $email
+    cp ~/.ssh/id_ed25519.pub ~/
 
     cecho YELLOW "configure your git"
     read -p "input your name for git: " name
