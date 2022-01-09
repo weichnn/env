@@ -40,6 +40,7 @@ if [[ ! -f "/home/$USER/.ssh/id_rsa" ]]; then
     read -p "input your email for ssh_key and git: " email
     ssh-keygen -t ed25519 -C $email
     cp ~/.ssh/id_ed25519.pub ~/
+# ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
 
     cecho YELLOW "configure your git"
     read -p "input your name for git: " name
